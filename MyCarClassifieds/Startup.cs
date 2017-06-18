@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyCarClassifieds.db;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyCarClassifieds
 {
@@ -23,14 +25,22 @@ namespace MyCarClassifieds
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            
         }
 
-        public string conn = @"Data Source=C:\Projects\ASP.NET-Core\MyCarClassifieds\MyCarClassifieds\db\MyCarClassifiedsDB.sdf;Password=betita01";
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddDbContext<AppDbContext>(
+                options => options.UseSqlCe(Configuration.GetConnectionString("DefaultConnection"))
+                );
+
+
+            services.AddMvc().AddJsonOptions(
+                options=>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +55,8 @@ namespace MyCarClassifieds
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            
 
             app.UseStaticFiles();
 
