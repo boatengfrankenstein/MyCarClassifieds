@@ -37,6 +37,7 @@ namespace MyCarClassifieds
                 options => options.UseSqlCe(Configuration.GetConnectionString("DefaultConnection"))
                 );
 
+            services.AddCors();
 
             services.AddMvc().AddJsonOptions(
                 options=>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -56,9 +57,9 @@ namespace MyCarClassifieds
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            
-
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseMvc(routes =>
             {

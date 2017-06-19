@@ -6,9 +6,12 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 import { CounterComponent } from './components/counter/counter.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
-import {Routes} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import {ErrorComponent} from "./components/error/error.component";
 import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
+import {HttpModule} from "@angular/http";
+import {FormsModule} from "@angular/forms";
+import {VehicleService} from "./services/vehicle.service";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -29,9 +32,12 @@ const routes: Routes = [
     FetchDataComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [VehicleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
