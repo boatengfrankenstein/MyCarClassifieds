@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyCarClassifieds.Models
 {
-    public class VehicleDTO
+    public class SaveVehicleDTO
     {
         public int Id { get; set; }
         public int ModelId { get; set; }
@@ -20,7 +20,7 @@ namespace MyCarClassifieds.Models
         public string ContactEmail { get; set; }
         public ICollection<int> Features { get; set; }
 
-        public VehicleDTO()
+        public SaveVehicleDTO()
         {
             Features = new Collection<int>();
         }

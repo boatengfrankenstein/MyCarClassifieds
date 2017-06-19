@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Web.Http;
 using MyCarClassifieds.db;
 using MyCarClassifieds.Models;
 
 namespace MyCarClassifieds.Controllers
 {
-    public class MakesController : Controller
+    public class MakesController : ApiController
     {
         private AppDbContext _context;
         public MakesController(AppDbContext context)
         {
-            _context = context;
+            _context = new AppDbContext();
         }
 
-        [HttpGet("/api/makes")]
+        [Route("api/features")]
+        [HttpGet]
         public IEnumerable<Make> Makes()
         {
-            return _context.Makes.Include(m => m.Models).ToList<Make>();
+            return _context.Makes.Include("Models").ToList<Make>();
         }
     }
 }

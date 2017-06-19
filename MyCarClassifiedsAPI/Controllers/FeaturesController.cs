@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
 using MyCarClassifieds.db;
 using MyCarClassifieds.Models;
 
 namespace MyCarClassifieds.Controllers
 {
-    public class FeaturesController : Controller
+    public class FeaturesController : ApiController
     {
         private AppDbContext _context;
         public FeaturesController(AppDbContext context)
         {
-            _context = context;
+            _context = new AppDbContext();
         }
 
-        [HttpGet("/api/features")]
-        public IEnumerable<Feature> Makes()
+        [HttpGet]
+        public IEnumerable<Feature> Get()
         {
             return _context.Features;
         }

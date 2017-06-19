@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using MyCarClassifieds.Models;
+using System.Web;
 
 namespace MyCarClassifieds.db
 {
@@ -15,7 +15,7 @@ namespace MyCarClassifieds.db
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleFeature> VehicleFeatures { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<VehicleFeature>().HasKey(vf =>
             new
@@ -23,10 +23,14 @@ namespace MyCarClassifieds.db
                 vf.VehicleId,
                 vf.FeatureId
             });
+
+            base.OnModelCreating(modelBuilder);
         }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+
+        public AppDbContext() : base(HttpRuntime.AppDomainAppPath + @"\db\MyCarClassifiedsDB.sdf")
         {
+            
         }
     }
 }

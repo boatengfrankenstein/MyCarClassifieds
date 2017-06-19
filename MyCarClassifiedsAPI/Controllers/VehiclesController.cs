@@ -1,26 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Web.Http;
 using MyCarClassifieds.db;
 using MyCarClassifieds.Models;
+using System.Data.Entity;
 
 namespace MyCarClassifieds.Controllers
 {
-    public class VehiclesController : Controller
+    public class VehiclesController : ApiController
     {
         private AppDbContext _context;
-        public VehiclesController(AppDbContext context)
+        public VehiclesController()
         {
-            _context = context;
+            _context = new AppDbContext();
         }
 
-        [HttpGet("/api/vehicles/{id?}")]
-        public IActionResult GetVehicle(int id)
+        [Route("api/vehicles/{id?}")]
+        [HttpGet]
+        public IHttpActionResult GetVehicle(int id)
         {
-            var newVehicle = _context.Vehicles.Include(f => f.Features).FirstOrDefault<Vehicle>(v => v.Id == id);
+            var newVehicle = _context.Vehicles.Include(f => f.Features).Include(m=>m.Model).Include(n=>n.Model.Make)
+                .FirstOrDefault<Vehicle>(v => v.Id == id);
 
             if (newVehicle == null)
             {
@@ -30,8 +31,9 @@ namespace MyCarClassifieds.Controllers
             return Ok(newVehicle);
         }
 
-        [HttpPost("/api/vehicles")]
-        public IActionResult NewVehicle([FromBody]VehicleDTO vehicle)
+        [Route("/api/vehicles")]
+        [HttpPost]
+        public IHttpActionResult NewVehicle([FromBody]SaveVehicleDTO vehicle)
         {
             if (!ModelState.IsValid)
             {
@@ -57,8 +59,9 @@ namespace MyCarClassifieds.Controllers
             return Ok(newVehicle);
         }
 
-        [HttpPut("/api/vehicles/{id?}")]
-        public IActionResult EditVehicle(int id, [FromBody]VehicleDTO vehicle)
+        [Route("/api/vehicles/{id?}")]
+        [HttpPut]
+        public IHttpActionResult EditVehicle(int id, [FromBody]SaveVehicleDTO vehicle)
         {
             if (!ModelState.IsValid)
             {
@@ -107,15 +110,16 @@ namespace MyCarClassifieds.Controllers
             return Ok(newVehicle);
         }
 
-        [HttpDelete("/api/vehicles/{id?}")]
-        public IActionResult DeleteVehicle(int id)
+        [Route("/api/vehicles/{id?}")]
+        [HttpDelete]
+        public IHttpActionResult DeleteVehicle(int id)
         {
             var newVehicle = _context.Vehicles.Include(f => f.Features).FirstOrDefault<Vehicle>(v => v.Id == id);
             if (newVehicle == null)
             {
                 return NotFound();
             }
-            _context.Remove(newVehicle);
+            _context.Vehicles.Remove(newVehicle);
             _context.SaveChanges();
 
             return Ok(id);
