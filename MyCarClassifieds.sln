@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "my-car-classifieds-ui", "my-car-classifieds-ui\", "{5B6D321B-11B2-47D9-BC06-DF7E4C254D3B}"
 	ProjectSection(WebsiteProperties) = preProject

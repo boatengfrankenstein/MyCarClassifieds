@@ -5,7 +5,7 @@ using System.Data.Entity;
 using MyCarClassifieds.Models;
 using System.Web;
 
-namespace MyCarClassifieds.db
+namespace MyCarClassifieds.DataHelpers
 {
     public class AppDbContext : DbContext
     {
@@ -28,7 +28,8 @@ namespace MyCarClassifieds.db
         }
 
 
-        public AppDbContext() : base(HttpRuntime.AppDomainAppPath + @"\db\MyCarClassifiedsDB.sdf")
+        public AppDbContext() : 
+            base("Data Source =" + HttpRuntime.AppDomainAppPath + @"\db\MyCarClassifiedsDB.sdf; Password = betita01")
         {
             
         }

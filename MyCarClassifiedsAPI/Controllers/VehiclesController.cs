@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using MyCarClassifieds.db;
+using MyCarClassifieds.DataHelpers;
 using MyCarClassifieds.Models;
 using System.Data.Entity;
 
@@ -31,7 +31,7 @@ namespace MyCarClassifieds.Controllers
             return Ok(newVehicle);
         }
 
-        [Route("/api/vehicles")]
+        [Route("api/vehicles")]
         [HttpPost]
         public IHttpActionResult NewVehicle([FromBody]SaveVehicleDTO vehicle)
         {
@@ -59,7 +59,7 @@ namespace MyCarClassifieds.Controllers
             return Ok(newVehicle);
         }
 
-        [Route("/api/vehicles/{id?}")]
+        [Route("api/vehicles/{id?}")]
         [HttpPut]
         public IHttpActionResult EditVehicle(int id, [FromBody]SaveVehicleDTO vehicle)
         {
@@ -110,7 +110,7 @@ namespace MyCarClassifieds.Controllers
             return Ok(newVehicle);
         }
 
-        [Route("/api/vehicles/{id?}")]
+        [Route("api/vehicles/{id?}")]
         [HttpDelete]
         public IHttpActionResult DeleteVehicle(int id)
         {

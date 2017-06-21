@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using MyCarClassifieds.db;
+using MyCarClassifieds.DataHelpers;
 using MyCarClassifieds.Models;
 
 namespace MyCarClassifieds.Controllers
@@ -10,12 +10,12 @@ namespace MyCarClassifieds.Controllers
     public class MakesController : ApiController
     {
         private AppDbContext _context;
-        public MakesController(AppDbContext context)
+        public MakesController()
         {
             _context = new AppDbContext();
         }
 
-        [Route("api/features")]
+        [Route("api/makes")]
         [HttpGet]
         public IEnumerable<Make> Makes()
         {
