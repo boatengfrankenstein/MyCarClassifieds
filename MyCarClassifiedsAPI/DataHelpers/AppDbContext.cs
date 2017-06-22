@@ -29,7 +29,7 @@ namespace MyCarClassifieds.DataHelpers
 
 
         public AppDbContext() : 
-            base("Data Source =" + HttpRuntime.AppDomainAppPath + @"\db\MyCarClassifiedsDB.sdf; Password = betita01")
+            base("Data Source =" + HttpRuntime.AppDomainAppPath + @"\App_Data\MyCarClassifiedsDB.sdf; Password = betita01")
         {
             
         }

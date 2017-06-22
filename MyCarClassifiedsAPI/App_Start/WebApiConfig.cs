@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MyCarClassifiedsAPI
 {
@@ -10,8 +11,13 @@ namespace MyCarClassifiedsAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
+            config.EnableCors(new EnableCorsAttribute("*","*","*"));
+
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
-= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+=               Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
